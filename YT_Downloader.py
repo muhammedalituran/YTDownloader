@@ -1,18 +1,7 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Mon Jul 22 08:53:07 2024
-
-@author: m_ali_s85f
-"""
 from pytubefix import YouTube
 import moviepy.editor as mpe
 from pathlib import Path
 import os
-
-
-
-
-
 
 yt=""
 
@@ -38,6 +27,7 @@ def downloader(res,downloads_path,download_folder):
         video.download(filename=f"{download_folder}\\video1.mp4")
         yt.streams.filter(type="audio").order_by("abr").desc().first().download(filename=f"{download_folder}\\audio1.mp3")
         video_combiner(res,downloads_path,download_folder)
+
 def get_thumbnail():
     thumbnail = yt.thumbnail_url
     return thumbnail
@@ -45,13 +35,10 @@ def get_thumbnail():
 def get_title():
     title = yt.title
     return title
-def audio_download():
-    downloads_path = str(Path.home() / "Downloads")
-    download_folder = downloads_path + "\YoutubeDownloads_byTuran"
+
+def audio_download(downloads_path,download_folder):
     yt.streams.filter(type="audio").order_by("abr").desc().first().download(filename=f"{download_folder}\\{yt.title}.mp3")
 
-    
-    
 def video_combiner(res,downloads_path,download_folder):
 
     my_clip = mpe.VideoFileClip(f"{download_folder}\\video1.mp4")
@@ -62,15 +49,3 @@ def video_combiner(res,downloads_path,download_folder):
     os.remove(f"{download_folder}\\audio1.mp3")
     print("Download Completed!")
  
-"""
-while True:
-    if cevap == 2:
-        resolutions = list(enumerate(get_resolutions(yt.streams.filter(file_extension="mp4",type="video").order_by("resolution"))))
-        for order,res in resolutions:
-            print(f"{order}-{res}")
-        down_res = int(input("İndirmek istediğiniz çözünürlüğü giriniz:"))
-        downloader(resolutions[down_res][1])
-    if cevap == 3:
-        audio_download()
-    if cevap == 0:
-        break"""

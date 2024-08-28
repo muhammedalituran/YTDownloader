@@ -25,11 +25,12 @@ def download():
     download_folder = downloads_path + "\YoutubeDownloads_byTuran"
     if radio_check_state.get() == 1:
         YT_Downloader.downloader(res_combobox.get(),downloads_path,download_folder)
+        messagebox.showinfo("Download Info","Download Completed!")
 
-    messagebox.showinfo("Download Info","Download Complited")
     if radio_check_state.get() == 2:
-        res_combobox.destroy()
-        YT_Downloader.audio_download()
+        res_combobox.place_forget()
+        YT_Downloader.audio_download(downloads_path,download_folder)
+        messagebox.showinfo("Download Info","Download Completed!")
 
 def video_download_menu():
     res_list = YT_Downloader.get_resolutions()
@@ -51,9 +52,15 @@ def paste():
 window = Tk()
 window.minsize(width=800,height=450)
 window.title("Youtube Downloader \ ByTuran")
-ico = Image.open('codes\\yt_downloader\\logo.jpg')
+"""
+#Logo
+ico = Image.open('codes\\yt_downloader\\logo.jpg').resize((256,144), Image.LANCZOS)
 photo = ImageTk.PhotoImage(ico)
 window.wm_iconphoto(False, photo)
+logo_label = Label(image=photo)
+logo_label.image= photo
+logo_label.place(x=540,y=300)
+"""
 screen_width = window.winfo_screenwidth()
 screen_height = window.winfo_screenheight()
 window_width = 800
@@ -87,11 +94,6 @@ def do_popup(event):
   
 link_entry.bind("<Button-3>", do_popup) 
 
-
-
-
-
-
 #Get video thumbnail and title
 thumbnail_label = Label(image="")
 thumbnail_label.place(x=500,y=25)
@@ -99,8 +101,7 @@ thumbnail_label.place(x=500,y=25)
 title_lable = Label()
 title_lable.place(x=500,y=180)
 
-#Resolution list
-res_combobox = ttk.Combobox()
+
 
 #Download type selection
 radio_check_state = IntVar()
@@ -114,5 +115,9 @@ audio_radiobutton.place(x=130,y=50)
 #Download Button
 download_button = Button(text="Download",command=download)
 download_button.place(x=300,y=100)
+
+#Resolution list
+res_combobox = ttk.Combobox()
+
 
 window.mainloop()
