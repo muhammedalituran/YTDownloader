@@ -42,10 +42,18 @@ def radiocheck_selected():
         res_combobox.place_forget()
     return radio_check_state.get()
 
+def paste():
+    clipboard = window.clipboard_get() # Get the copied item from system clipboard
+    link_entry.insert('end',clipboard) # Insert the item into the entry widget
+
+
 #Main windows
 window = Tk()
 window.minsize(width=800,height=450)
 window.title("Youtube Downloader \ ByTuran")
+ico = Image.open('codes\\yt_downloader\\logo.jpg')
+photo = ImageTk.PhotoImage(ico)
+window.wm_iconphoto(False, photo)
 screen_width = window.winfo_screenwidth()
 screen_height = window.winfo_screenheight()
 window_width = 800
@@ -62,8 +70,26 @@ link_label.place(x=0,y=10)
 link_entry = Entry(width=60)
 link_entry.place(x=60,y=10)
 
+
 link_button = Button(text="Check",command=lambda:[YT_Downloader.youtube_object_creater(link_entry.get()),get_thumbnail_gui()])
 link_button.place(x=430,y=7)
+
+
+m = Menu(window, tearoff = 0)
+m.add_command(label ="Paste",command=paste) 
+
+  
+def do_popup(event): 
+    try: 
+        m.tk_popup(event.x_root, event.y_root) 
+    finally: 
+        m.grab_release() 
+  
+link_entry.bind("<Button-3>", do_popup) 
+
+
+
+
 
 
 #Get video thumbnail and title
