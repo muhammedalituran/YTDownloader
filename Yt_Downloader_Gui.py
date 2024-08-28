@@ -10,6 +10,17 @@ import os
 #variables
 res_list = []
 
+def resource_path(relative_path):
+    try:
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative_path)
+
+
+
+
 def get_thumbnail_gui():
     
     th_url = YT_Downloader.get_thumbnail()
@@ -54,7 +65,7 @@ window.minsize(width=800,height=450)
 window.title("Youtube Downloader \ ByTuran")
 """
 #Logo
-ico = Image.open('codes\\yt_downloader\\logo.jpg').resize((256,144), Image.LANCZOS)
+ico = Image.open(resource_path("logo.png")).resize((256,144), Image.LANCZOS)
 photo = ImageTk.PhotoImage(ico)
 window.wm_iconphoto(False, photo)
 logo_label = Label(image=photo)
