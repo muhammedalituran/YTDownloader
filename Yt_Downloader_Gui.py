@@ -57,7 +57,7 @@ def Window(text):
         res_list = YT_Downloader.get_resolutions()
         res_combobox.config(values=res_list)
         res_combobox.set("Pick a resolution")
-        res_combobox.place(x=10,y=80)
+        res_combobox.place(x=15,y=255)
 
     def radiocheck_selected():
         if radio_check_state.get() == 2:
@@ -120,7 +120,7 @@ def Window(text):
     thumbnail_label.place(x=15,y=45)
 
     title_lable = Label()
-    title_lable.place(x=115,y=45)
+    title_lable.place(x=15,y=195)
 
 
 
